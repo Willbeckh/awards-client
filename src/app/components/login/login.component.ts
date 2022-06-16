@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
   submitForm() {
     this.userService.loginUser(this.loginForm.value).subscribe((data) => {
-      console.log('Logged in');
       this.ngZone.run(() => this.router.navigateByUrl('/'));
     });
   }
