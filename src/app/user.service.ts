@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  // base url
+  // baseurl
   // baseurl = 'https://looku-awards.herokuapp.com/';
   baseurl = 'http://localhost:8000/';
   constructor(private http: HttpClient) {}
@@ -17,18 +17,48 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('currentUser'),
     }),
   };
   // POST
-  loginUser(data: any): Observable<User> {
+  loginUser(username: string, password: string): Observable<User> {
     return this.http
-      .post<User>(this.baseurl + 'login/', data, this.httpOptions)
+      .post<User>(
+        this.baseurl + 'login/',
+        { username, password },
+        this.httpOptions
+      )
+      .pipe(
+        map((user) => {
+          if (user && user['access']) {
+            localStorage.setItem(
+              'currentUser',
+              JSON.stringify(user['access']).slice(1, -1)
+            );
+          }
+          console.log('currentUser', localStorage.getItem('currentUser'));
+
+          return user;
+        })
+      );
+  }
+
+  // log out user
+  logoutUser() {
+    localStorage.removeItem('currentUser');
+  }
+
+  // POST register
+  registerUser(data: any): Observable<User> {
+    return this.http
+      .post<User>(this.baseurl + 'register/', data)
       .pipe(retry(1), catchError(this.errorHandler));
   }
-  // GET all users
+
+  // GET all projects
   getUsers(): Observable<User[]> {
     return this.http
-      .get<User[]>(this.baseurl)
+      .get<User[]>(this.baseurl + 'api/projects/', this.httpOptions)
       .pipe(retry(1), catchError(this.errorHandler));
   }
 

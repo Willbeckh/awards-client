@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/user.service';
 @Component({
@@ -10,7 +10,6 @@ import { UserService } from 'src/app/user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  // userArray: any = [];
 
   constructor(
     public fb: FormBuilder,
@@ -19,20 +18,25 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone
   ) {}
   ngOnInit(): void {
-    this.loginUser();
+    // this.loginUser();
+    this.loginForm = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(''),
+    });
   }
 
-  // login user
-  loginUser() {
-    this.loginForm = this.fb.group({
-      // form input for username + password
-      username: [''],
-      password: [''],
-    });
+  get f() {
+    return this.loginForm.controls;
   }
   submitForm() {
-    this.userService.loginUser(this.loginForm.value).subscribe((data) => {
-      this.ngZone.run(() => this.router.navigateByUrl('/'));
-    });
+    this.userService
+      .loginUser(this.f['username'].value, this.f['password'].value)
+      .subscribe((data) => {
+        this.ngZone.run(() =>
+          this.router.navigateByUrl('/').then(() => {
+            window.location.reload();
+          })
+        );
+      });
   }
 }
