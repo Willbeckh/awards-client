@@ -1,2 +1,14 @@
-<p>home works!</p>
-<h2>{{obj|json}}</h2>
+<div class="col-md-6">
+  <!-- <div class="home" *ngIf="obj.results.length < 0">
+    <p>Hello, Welcome to awards</p>
+  </div> -->
+  <div class="card mb-3" *ngFor="let project of obj.results">
+    <img src="{{ project.image_url }}" alt="project image" />
+    <div class="card-body">
+      <p class="card-title">
+        {{ project.name }}
+      </p>
+      <small>{{ project.created_at | date }}</small>
+    </div>
+  </div>
+</div>

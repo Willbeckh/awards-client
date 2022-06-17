@@ -22,13 +22,12 @@ export class HomeComponent implements OnInit {
   obj: any;
 
   ngOnInit(): void {
-    this.obj = this.getUsers();
+    this.obj = this.getProjects();
   }
   // get all users,
-  getUsers() {
+  getProjects() {
     this.userService.getUsers().subscribe((data) => {
       this.obj = data;
-      console.log('data', data);
     });
   }
 }
