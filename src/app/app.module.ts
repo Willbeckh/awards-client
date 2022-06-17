@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import { NewProjectComponent } from './components/new-project/new-project.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     HeaderComponent,
     RegisterComponent,
+    NewProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
+    NewProjectComponent,
   ],
 })
 export class AppModule {}
