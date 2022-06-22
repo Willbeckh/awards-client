@@ -8,9 +8,8 @@ import { retry, catchError, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService {
-  // baseurl
-  // baseurl = 'https://looku-awards.herokuapp.com/';
-  baseurl = 'http://localhost:8000/';
+  baseurl = 'https://looku-awards.herokuapp.com/';
+  // baseurl = 'http://localhost:8000/';
   constructor(private http: HttpClient) {}
 
   // define http headers
@@ -48,6 +47,11 @@ export class UserService {
     localStorage.removeItem('currentUser');
   }
 
+  // get current user
+  getUsername() {
+    // return JSON.parse(localStorage.getItem('currentUser')).email;
+  }
+
   // POST register
   registerUser(data: any): Observable<User> {
     return this.http
@@ -56,9 +60,16 @@ export class UserService {
   }
 
   // GET all projects
-  getUsers(): Observable<User[]> {
+  getProjects(): Observable<User[]> {
     return this.http
       .get<User[]>(this.baseurl + 'api/projects/', this.httpOptions)
+      .pipe(retry(1), catchError(this.errorHandler));
+  }
+
+  // GET project by id
+  getProjectById(id: number): Observable<User> {
+    return this.http
+      .get<User>(this.baseurl + 'api/projects/' + id, this.httpOptions)
       .pipe(retry(1), catchError(this.errorHandler));
   }
 
