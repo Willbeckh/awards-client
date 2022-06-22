@@ -1,0 +1,66 @@
+<p>new-project works!</p>
+<div class="col-md-4">
+  <div class="bg-info p-3 rounded justify-content-center">
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" en>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Project Title.."
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="description"
+          placeholder="Project Description.."
+        />
+        <span
+          *ngIf="
+            projectForm.controls['description'].touched &&
+            projectForm.controls['description'].invalid
+          "
+        >
+          This filed is required
+        </span>
+      </div>
+      <div class="form-group mb-3">
+        <input
+          (change)="onUploadFile($event)"
+          type="file"
+          name="image_file"
+          class="form-control"
+          formControlName="image_file"
+          accept="image/*"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="url"
+          placeholder="Project URL.."
+        />
+        <span
+          *ngIf="
+            projectForm.controls['url'].touched &&
+            projectForm.controls['url'].invalid
+          "
+        >
+          This filed is required
+        </span>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!projectForm.valid"
+        class="btn btn-success btn-sm"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

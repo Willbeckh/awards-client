@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
   // get all users,
   getProjects() {
-    this.userService.getUsers().subscribe((data) => {
+    this.userService.getProjects().subscribe((data) => {
       this.obj = data;
     });
   }

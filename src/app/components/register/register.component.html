@@ -1,28 +1,30 @@
-<div class="col-md-4">
-  <div class="register-form bg-warning p-3 rounded justify-content-center">
-    <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
-      <div class="form-group">
-        <input
-          type="text"
-          formControlName="username"
-          placeholder="Username"
-          class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Email"
-          class="form-control"
-        />
-      </div>
+<div class="row justify-content-center mt-5">
+  <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+    <div class="login-form p-4 rounded shadow-sm">
+      <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+        <h3 class="text-center mb-3">Register</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="username"
+            placeholder="Username"
+            class="form-control mb-3"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+            class="form-control mb-3"
+          />
+        </div>
         <div class="form-group">
           <input
             type="password"
             formControlName="password"
             placeholder="Password"
-            class="form-control"
+            class="form-control mb-3"
           />
         </div>
         <div class="form-group">
@@ -30,7 +32,7 @@
             type="password"
             formControlName="password2"
             placeholder="Confirm Password"
-            class="form-control"
+            class="form-control mb-3"
           />
         </div>
         <div class="form-group">
@@ -38,7 +40,7 @@
             type="text"
             formControlName="first_name"
             placeholder="First Name"
-            class="form-control"
+            class="form-control mb-3"
           />
         </div>
         <div class="form-group">
@@ -46,12 +48,15 @@
             type="text"
             formControlName="last_name"
             placeholder="Last Name.."
-            class="form-control"
+            class="form-control mb-3"
           />
         </div>
-      <button type="submit" class="btn btn-outline-primary btn-sm">
-        Sign In
-      </button>
-    </form>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-outline-primary btn-sm">
+            Sign In
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
